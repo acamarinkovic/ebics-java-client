@@ -83,9 +83,9 @@
         </dependency>
     </dependencies>
     <scm>
-        <connection>scm:git:git@gitlab.miticondev.net:2224/miticon/ebics-java-client.git</connection>
-        <url>scm:git:git@gitlab.miticondev.net:2224/miticon/ebics-java-client.git</url>
-        <developerConnection>scm:git:git@gitlab.miticondev.net:2224/miticon/ebics-java-client.git</developerConnection>
+        <connection>scm:git:ssh://git@gitlab.miticondev.net:2224/miticon/ebics-java-client.git</connection>
+        <url>https://gitlab.miticondev.net/miticon/ebics-java-client</url>
+        <developerConnection>scm:git:ssh://git@gitlab.miticondev.net:2224/miticon/ebics-java-client.git</developerConnection>
     </scm>
     <build>
         <plugins>
