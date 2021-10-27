@@ -83,7 +83,9 @@
         </dependency>
     </dependencies>
     <scm>
-        <developerConnection>scm:svn:file:///Users/marko.teodorovic/cc/src/ebics-java-client/trunk</developerConnection>
+        <connection>scm:git:git@gitlab.miticondev.net:2224/miticon/ebics-java-client.git</connection>
+        <url>scm:git:git@gitlab.miticondev.net:2224/miticon/ebics-java-client.git</url>
+        <developerConnection>scm:git:git@gitlab.miticondev.net:2224/miticon/ebics-java-client.git</developerConnection>
     </scm>
     <build>
         <plugins>
@@ -145,13 +147,27 @@
                 <artifactId>maven-release-plugin</artifactId>
                 <version>2.5.2</version>
                 <configuration>
-                    <tagBase>
-                        file:///Users/marko.teodorovic/cc/src/ebics-java-client/tags
-                    </tagBase>
+                    <releaseProfiles>releases</releaseProfiles>
+<!--                    <checkModificationExcludes>-->
+<!--                        <checkModificationExclude>pom.xml</checkModificationExclude>-->
+<!--                        <checkModificationExclude>**</checkModificationExclude>-->
+<!--                    </checkModificationExcludes>-->
                 </configuration>
             </plugin>
         </plugins>
     </build>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <url>https://nexus.miticondev.net/repository/maven-snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>nexus-releases</id>
+            <url>https://nexus.miticondev.net/repository/maven-releases/</url>
+        </repository>
+    </distributionManagement>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
