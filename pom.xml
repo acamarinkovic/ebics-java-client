@@ -1,10 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.gerniks</groupId>
     <artifactId>ebics-java-client</artifactId>
     <packaging>jar</packaging>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.1</version>
     <name>ebics-java-client</name>
     <url>https://nexus.miticondev.net/</url>
     <dependencies>
@@ -86,7 +85,8 @@
         <connection>scm:git:ssh://git@gitlab.miticondev.net:2224/miticon/ebics-java-client.git</connection>
         <url>https://gitlab.miticondev.net/miticon/ebics-java-client</url>
         <developerConnection>scm:git:ssh://git@gitlab.miticondev.net:2224/miticon/ebics-java-client.git</developerConnection>
-    </scm>
+      <tag>v1.1</tag>
+  </scm>
     <build>
         <plugins>
             <plugin>
