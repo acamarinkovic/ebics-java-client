@@ -148,10 +148,8 @@
                 <version>2.5.2</version>
                 <configuration>
                     <releaseProfiles>releases</releaseProfiles>
-<!--                    <checkModificationExcludes>-->
-<!--                        <checkModificationExclude>pom.xml</checkModificationExclude>-->
-<!--                        <checkModificationExclude>**</checkModificationExclude>-->
-<!--                    </checkModificationExcludes>-->
+                    <tagNameFormat>v@{project.version}</tagNameFormat>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
                 </configuration>
             </plugin>
         </plugins>
