@@ -85,7 +85,8 @@
         <connection>scm:git:ssh://git@gitlab.miticondev.net:2224/miticon/ebics-java-client.git</connection>
         <url>https://gitlab.miticondev.net/miticon/ebics-java-client</url>
         <developerConnection>scm:git:ssh://git@gitlab.miticondev.net:2224/miticon/ebics-java-client.git</developerConnection>
-    </scm>
+      <tag>v1.1</tag>
+  </scm>
     <build>
         <plugins>
             <plugin>
