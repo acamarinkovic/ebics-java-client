@@ -3,7 +3,7 @@
     <groupId>com.gerniks</groupId>
     <artifactId>ebics-java-client</artifactId>
     <packaging>jar</packaging>
-    <version>1.9</version>
+    <version>1.10-SNAPSHOT</version>
     <name>ebics-java-client</name>
     <url>https://nexus.miticondev.net/</url>
     <dependencies>
@@ -85,7 +85,7 @@
         <connection>scm:git:ssh://git@gitlab.miticondev.net:2224/miticon/ebics-java-client.git</connection>
         <url>https://gitlab.miticondev.net/miticon/ebics-java-client</url>
         <developerConnection>scm:git:ssh://git@gitlab.miticondev.net:2224/miticon/ebics-java-client.git</developerConnection>
-      <tag>v1.9</tag>
+      <tag>v1.1</tag>
   </scm>
     <build>
         <plugins>
