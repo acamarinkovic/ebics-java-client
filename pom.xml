@@ -3,7 +3,7 @@
     <groupId>com.gerniks</groupId>
     <artifactId>ebics-java-client</artifactId>
     <packaging>jar</packaging>
-    <version>1.10-SNAPSHOT</version>
+    <version>1.10</version>
     <name>ebics-java-client</name>
     <url>https://nexus.miticondev.net/</url>
     <dependencies>
@@ -85,7 +85,7 @@
         <connection>scm:git:ssh://git@gitlab.miticondev.net:2224/miticon/ebics-java-client.git</connection>
         <url>https://gitlab.miticondev.net/miticon/ebics-java-client</url>
         <developerConnection>scm:git:ssh://git@gitlab.miticondev.net:2224/miticon/ebics-java-client.git</developerConnection>
-      <tag>v1.1</tag>
+      <tag>v1.10</tag>
   </scm>
     <build>
         <plugins>
@@ -112,8 +112,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -148,6 +148,9 @@
                 <version>2.5.3</version>
                 <configuration>
                     <releaseProfiles>releases</releaseProfiles>
+                    <checkModificationExcludes>
+                        <checkModificationExclude>pom.xml</checkModificationExclude>
+                    </checkModificationExcludes>
                     <tagNameFormat>v@{project.version}</tagNameFormat>
                     <autoVersionSubmodules>true</autoVersionSubmodules>
                 </configuration>
