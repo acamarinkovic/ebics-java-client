@@ -149,6 +149,7 @@
                 <configuration>
                     <releaseProfiles>releases</releaseProfiles>
                     <checkModificationExcludes>
+                        <checkModificationExclude>src/test/java/org/kopi/ebics/io/SplitterTest.java</checkModificationExclude>
                         <checkModificationExclude>pom.xml</checkModificationExclude>
                     </checkModificationExcludes>
                     <tagNameFormat>v@{project.version}</tagNameFormat>
