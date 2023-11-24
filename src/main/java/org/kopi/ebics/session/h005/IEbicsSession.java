@@ -2,7 +2,6 @@ package org.kopi.ebics.session.h005;
 
 import org.kopi.ebics.certificate.h005.BankCertificateManager;
 import org.kopi.ebics.certificate.h005.UserCertificateManager;
-import org.kopi.ebics.client.h005.config.EbicsConfiguration;
 import org.kopi.ebics.client.h005.user.EbicsUser;
 import org.kopi.ebics.exception.h005.EbicsException;
 
