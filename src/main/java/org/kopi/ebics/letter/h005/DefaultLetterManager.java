@@ -14,6 +14,10 @@ public class DefaultLetterManager implements LetterManager {
 
     private Locale locale;
 
+    public DefaultLetterManager(Locale locale){
+        this.locale = locale;
+    }
+
     @Override
     public InitLetter createA005Letter(EbicsUser user, UserCertificateManager userCert) throws GeneralSecurityException, IOException, EbicsException {
         return new A005Letter(locale, user, userCert, user.isUseCertificate());
