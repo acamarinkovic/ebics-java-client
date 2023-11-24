@@ -5,7 +5,6 @@
     <packaging>jar</packaging>
     <version>1.13-SNAPSHOT</version>
     <name>ebics-java-client</name>
-    <url>https://nexus.miticondev.net/</url>
     <dependencies>
         <dependency>
             <groupId>org.apache.xmlbeans</groupId>
@@ -158,18 +157,6 @@
             </plugin>
         </plugins>
     </build>
-
-    <distributionManagement>
-        <snapshotRepository>
-            <id>nexus-snapshots</id>
-            <url>https://nexus.miticondev.net/repository/maven-snapshots/</url>
-        </snapshotRepository>
-        <repository>
-            <id>nexus-releases</id>
-            <url>https://nexus.miticondev.net/repository/maven-releases/</url>
-        </repository>
-    </distributionManagement>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
