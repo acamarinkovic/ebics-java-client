@@ -1,0 +1,11 @@
+package org.kopi.ebics.enumeration.h005;
+
+public enum EbicsUserAction {
+    CREATE_KEYS,
+    INI,
+    HIA,
+    HPB,
+    SPR,   //Reset user status on client & server side
+    RESET, //Reset user status without SPR request, the actual server status must be reset on server side
+    CREATE_LETTERS,
+}
