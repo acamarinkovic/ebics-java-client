@@ -6,7 +6,7 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.util.EntityUtils;
-import org.kopi.ebics.exception.h005.EbicsException;
+import org.kopi.ebics.exception.EbicsException;
 import org.kopi.ebics.exception.h005.HttpClientException;
 import org.kopi.ebics.exception.h005.HttpServerException;
 import org.kopi.ebics.io.h005.ByteArrayContentFactory;

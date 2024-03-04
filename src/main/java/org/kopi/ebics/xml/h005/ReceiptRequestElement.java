@@ -19,8 +19,8 @@
 
 package org.kopi.ebics.xml.h005;
 
-import org.kopi.ebics.session.h005.EbicsSession;
-import org.kopi.ebics.exception.h005.EbicsException;
+import org.kopi.ebics.session.EbicsSession;
+import org.kopi.ebics.exception.EbicsException;
 import org.kopi.ebics.schema.h005.EbicsRequestDocument;
 import org.kopi.ebics.schema.h005.MutableHeaderType;
 import org.kopi.ebics.schema.h005.StaticHeaderType;
@@ -41,11 +41,16 @@ public class ReceiptRequestElement extends DefaultEbicsRootElement {
      * @param transactionId
      */
     public ReceiptRequestElement(EbicsSession session,
-                                 byte[] transactionId) {
+                                 byte[] transactionId,
+                                 String name) {
         super(session);
+        this.name=name;
         this.transactionId = transactionId;
     }
-
+    @Override
+    public String getName() {
+        return name  + ".xml";
+    }
     @Override
     public void build() throws EbicsException {
         EbicsRequestDocument.EbicsRequest request;
@@ -63,7 +68,7 @@ public class ReceiptRequestElement extends DefaultEbicsRootElement {
         body = EbicsXmlFactory.createEbicsRequestBody(transferReceipt);
         request = EbicsXmlFactory.createEbicsRequest(header, body);
         document = EbicsXmlFactory.createEbicsRequestDocument(request);
-        signedInfo = new SignedInfo(session.getUserCert(), getDigest());
+        signedInfo = new SignedInfo(session.getUser(), getDigest());
         signedInfo.build();
         ((EbicsRequestDocument) document).getEbicsRequest().setAuthSignature(signedInfo.getSignatureType());
         ((EbicsRequestDocument) document).getEbicsRequest().getAuthSignature().setSignatureValue(EbicsXmlFactory.createSignatureValueType(signedInfo.sign(toByteArray())));
@@ -79,7 +84,7 @@ public class ReceiptRequestElement extends DefaultEbicsRootElement {
     // --------------------------------------------------------------------
     // DATA MEMBERS
     // --------------------------------------------------------------------
-
+    private String			name;
     private byte[] transactionId;
     private static final long serialVersionUID = -1969616441705744725L;
 }

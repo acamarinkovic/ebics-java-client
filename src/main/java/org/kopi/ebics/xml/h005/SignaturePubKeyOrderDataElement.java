@@ -20,11 +20,16 @@
 package org.kopi.ebics.xml.h005;
 
 
-import org.kopi.ebics.session.h005.EbicsSession;
-import org.kopi.ebics.exception.h005.EbicsException;
-import org.kopi.ebics.schema.s002.SignaturePubKeyInfoType;
-import org.kopi.ebics.schema.s002.SignaturePubKeyOrderDataType;
+import org.kopi.ebics.schema.s001.PubKeyValueType;
+import org.kopi.ebics.schema.s001.SignaturePubKeyInfoType;
+import org.kopi.ebics.schema.s001.SignaturePubKeyOrderDataType;
+import org.kopi.ebics.schema.xmldsig.RSAKeyValueType;
+import org.kopi.ebics.session.EbicsSession;
+import org.kopi.ebics.exception.EbicsException;
 import org.kopi.ebics.schema.xmldsig.X509DataType;
+import org.kopi.ebics.xml.EbicsXmlFactory;
+
+import java.util.Calendar;
 
 
 /**
@@ -47,17 +52,27 @@ public class SignaturePubKeyOrderDataElement extends DefaultEbicsRootElement {
     @Override
     public void build() throws EbicsException {
         SignaturePubKeyInfoType signaturePubKeyInfo;
-        final X509DataType x509Data;
+        X509DataType 			x509Data;
+        RSAKeyValueType rsaKeyValue;
+        PubKeyValueType pubKeyValue;
         SignaturePubKeyOrderDataType signaturePubKeyOrderData;
 
-        x509Data = EbicsXmlFactory.createX509DataType(session.getUser().getDn(),
-                session.getUserCert().getA005CertificateBytes());
-        signaturePubKeyInfo = EbicsXmlFactory.createSignaturePubKeyInfoType(x509Data,
+        x509Data = null;
+        if (session.getUser().getPartner().getBank().useCertificate())
+            x509Data = org.kopi.ebics.xml.EbicsXmlFactory.createX509DataType(session.getUser().getDN(),
+                    session.getUser().getA005Certificate());
+        rsaKeyValue = org.kopi.ebics.xml.EbicsXmlFactory.createRSAKeyValueType(session.getUser().getA005PublicKey().getPublicExponent().toByteArray(),
+                session.getUser().getA005PublicKey().getModulus().toByteArray());
+        pubKeyValue = org.kopi.ebics.xml.EbicsXmlFactory.createPubKeyValueType(rsaKeyValue, Calendar.getInstance());
+        signaturePubKeyInfo = org.kopi.ebics.xml.EbicsXmlFactory.createSignaturePubKeyInfoType(x509Data,
+                pubKeyValue,
                 session.getConfiguration().getSignatureVersion());
-        signaturePubKeyOrderData = EbicsXmlFactory.createSignaturePubKeyOrderData(signaturePubKeyInfo,
+        signaturePubKeyOrderData = org.kopi.ebics.xml.EbicsXmlFactory.createSignaturePubKeyOrderData(signaturePubKeyInfo,
                 session.getUser().getPartner().getPartnerId(),
                 session.getUser().getUserId());
         document = EbicsXmlFactory.createSignaturePubKeyOrderDataDocument(signaturePubKeyOrderData);
+
+
     }
 
     @Override

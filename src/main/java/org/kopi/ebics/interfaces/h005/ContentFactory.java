@@ -1,7 +1,7 @@
 package org.kopi.ebics.interfaces.h005;
 
 
-import org.kopi.ebics.exception.h005.EbicsException;
+import org.kopi.ebics.exception.EbicsException;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

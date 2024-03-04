@@ -20,8 +20,8 @@
 package org.kopi.ebics.xml.h005;
 
 import org.kopi.ebics.enumeration.h005.EbicsAdminOrderType;
-import org.kopi.ebics.session.h005.EbicsSession;
-import org.kopi.ebics.exception.h005.EbicsException;
+import org.kopi.ebics.session.EbicsSession;
+import org.kopi.ebics.exception.EbicsException;
 import org.kopi.ebics.schema.h005.EbicsRequestDocument;
 import org.kopi.ebics.schema.h005.MutableHeaderType;
 import org.kopi.ebics.schema.h005.StaticHeaderType;

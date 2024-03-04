@@ -1,6 +1,8 @@
 package org.kopi.ebics.interfaces.h005;
 
 
+import org.kopi.ebics.interfaces.EbicsBank;
+
 public interface EbicsPartner {
 
     /**

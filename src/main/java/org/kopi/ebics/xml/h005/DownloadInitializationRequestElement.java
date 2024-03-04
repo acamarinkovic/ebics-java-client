@@ -21,8 +21,8 @@ package org.kopi.ebics.xml.h005;
 
 import org.kopi.ebics.enumeration.h005.EbicsAdminOrderType;
 import org.kopi.ebics.order.h005.EbicsDownloadOrder;
-import org.kopi.ebics.session.h005.EbicsSession;
-import org.kopi.ebics.exception.h005.EbicsException;
+import org.kopi.ebics.session.EbicsSession;
+import org.kopi.ebics.exception.EbicsException;
 import org.kopi.ebics.schema.h005.*;
 import org.kopi.ebics.schema.h005.StaticHeaderOrderDetailsType;
 
@@ -69,10 +69,10 @@ public class DownloadInitializationRequestElement extends InitializationRequestE
       product = EbicsXmlFactory.createProduct(session.getProduct());
       authentication = EbicsXmlFactory.createAuthentication(session.getConfiguration().getAuthenticationVersion(),
               "http://www.w3.org/2001/04/xmlenc#sha256",
-              decodeHex(session.getBankCert().getX002Digest()));
+              decodeHex(session.getUser().getPartner().getBank().getX002Digest()));
       encryption = EbicsXmlFactory.createEncryption(session.getConfiguration().getEncryptionVersion(),
               "http://www.w3.org/2001/04/xmlenc#sha256",
-              decodeHex(session.getBankCert().getE002Digest()));
+              decodeHex(session.getUser().getPartner().getBank().getE002Digest()));
       bankPubKeyDigests = EbicsXmlFactory.createBankPubKeyDigests(authentication, encryption);
       adminOrderType = EbicsXmlFactory.createAdminOrderType(ebicsOrder.getAdminOrderType().toString());
 

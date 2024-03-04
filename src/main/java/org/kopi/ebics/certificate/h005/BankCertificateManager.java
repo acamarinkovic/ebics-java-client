@@ -2,7 +2,7 @@ package org.kopi.ebics.certificate.h005;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.openssl.PEMParser;
-import org.kopi.ebics.exception.h005.EbicsException;
+import org.kopi.ebics.exception.EbicsException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

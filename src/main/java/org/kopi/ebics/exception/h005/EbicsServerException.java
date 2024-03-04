@@ -1,5 +1,7 @@
 package org.kopi.ebics.exception.h005;
 
+import org.kopi.ebics.exception.EbicsException;
+
 public class EbicsServerException extends EbicsException implements IErrorCodeText{
     private final EbicsReturnCode ebicsReturnCode;
 

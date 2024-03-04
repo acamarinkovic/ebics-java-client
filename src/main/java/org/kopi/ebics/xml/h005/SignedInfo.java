@@ -24,7 +24,8 @@ import org.apache.xml.security.transforms.TransformationException;
 import org.apache.xml.security.utils.IgnoreAllErrorHandler;
 import org.apache.xpath.XPathAPI;
 import org.kopi.ebics.certificate.h005.UserCertificateManager;
-import org.kopi.ebics.exception.h005.EbicsException;
+import org.kopi.ebics.exception.EbicsException;
+import org.kopi.ebics.interfaces.EbicsUser;
 import org.kopi.ebics.schema.xmldsig.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -47,11 +48,10 @@ public class SignedInfo extends DefaultEbicsRootElement {
      *
      * @param digest the digest value
      */
-    public SignedInfo(UserCertificateManager userCert, byte[] digest) {
-        this.userCert = userCert;
+    public SignedInfo(EbicsUser user, byte[] digest) {
+        this.userCert = user;
         this.digest = digest;
     }
-
     @Override
     public void build() throws EbicsException {
         CanonicalizationMethodType canonicalizationMethod;
@@ -157,6 +157,6 @@ public class SignedInfo extends DefaultEbicsRootElement {
     // --------------------------------------------------------------------
 
     private byte[] digest;
-    private UserCertificateManager userCert;
+    private EbicsUser userCert;
     private static final long serialVersionUID = 4194924578678778580L;
 }

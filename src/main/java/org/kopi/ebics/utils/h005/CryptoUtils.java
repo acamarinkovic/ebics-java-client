@@ -1,7 +1,7 @@
 package org.kopi.ebics.utils.h005;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.kopi.ebics.exception.h005.EbicsException;
+import org.kopi.ebics.exception.EbicsException;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;

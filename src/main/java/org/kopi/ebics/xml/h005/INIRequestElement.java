@@ -20,9 +20,9 @@
 package org.kopi.ebics.xml.h005;
 
 import org.kopi.ebics.enumeration.h005.EbicsAdminOrderType;
-import org.kopi.ebics.session.h005.EbicsSession;
-import org.kopi.ebics.exception.h005.EbicsException;
-import org.kopi.ebics.utils.h005.Utils;
+import org.kopi.ebics.session.EbicsSession;
+import org.kopi.ebics.exception.EbicsException;
+import org.kopi.ebics.utils.Utils;
 
 /**
  * The INI request XML element. This root element is to be sent
@@ -37,8 +37,9 @@ public class INIRequestElement extends DefaultEbicsRootElement {
      *
      * @param session the ebics session.
      */
-    public INIRequestElement(EbicsSession session) {
+    public INIRequestElement(EbicsSession session,String orderId) {
         super(session);
+        this.orderId = orderId;
     }
 
     @Override
@@ -68,7 +69,7 @@ public class INIRequestElement extends DefaultEbicsRootElement {
     // --------------------------------------------------------------------
     // DATA MEMBERS
     // --------------------------------------------------------------------
-
+    private String			orderId;
     private SignaturePubKeyOrderDataElement signaturePubKey;
     private UnsecuredRequestElement unsecuredRequest;
     private static final long serialVersionUID = -1966559247739923555L;

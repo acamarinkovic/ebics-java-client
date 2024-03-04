@@ -139,5 +139,10 @@ public class EbicsSession {
   private EbicsUser				user;
   private Configuration 			configuration;
   private Product				product;
+
+  public Map<String, String> getParameters() {
+    return parameters;
+  }
+
   private Map<String, String>			parameters;
 }

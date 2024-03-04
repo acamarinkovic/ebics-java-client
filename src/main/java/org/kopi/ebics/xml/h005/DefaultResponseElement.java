@@ -21,9 +21,9 @@ package org.kopi.ebics.xml.h005;
 
 import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlObject;
-import org.kopi.ebics.exception.h005.EbicsException;
+import org.kopi.ebics.exception.EbicsException;
 import org.kopi.ebics.exception.h005.EbicsReturnCode;
-import org.kopi.ebics.interfaces.h005.ContentFactory;
+import org.kopi.ebics.interfaces.ContentFactory;
 
 import java.io.IOException;
 
@@ -41,10 +41,14 @@ public abstract class DefaultResponseElement extends DefaultEbicsRootElement {
      *
      * @param factory the content factory containing the response.
      */
+    public DefaultResponseElement(ContentFactory factory, String name) {
+        this.factory = factory;
+        this.name = name;
+    }
+
     public DefaultResponseElement(ContentFactory factory) {
         this.factory = factory;
     }
-
     /**
      * Parses the content of a <code>ContentFactory</code>
      *
@@ -73,11 +77,14 @@ public abstract class DefaultResponseElement extends DefaultEbicsRootElement {
             returnCode.throwException();
         }
     }
-
+    @Override
+    public String getName() {
+        return name + ".xml";
+    }
     // --------------------------------------------------------------------
     // DATA MEMBERS
     // --------------------------------------------------------------------
-
+    private String 			name;
     protected ContentFactory factory;
     protected EbicsReturnCode returnCode;
     private static final long serialVersionUID = 4014595046719645090L;

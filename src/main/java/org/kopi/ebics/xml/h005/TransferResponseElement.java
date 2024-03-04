@@ -19,9 +19,9 @@
 
 package org.kopi.ebics.xml.h005;
 
-import org.kopi.ebics.exception.h005.EbicsException;
+import org.kopi.ebics.exception.EbicsException;
 import org.kopi.ebics.exception.h005.EbicsReturnCode;
-import org.kopi.ebics.interfaces.h005.ContentFactory;
+import org.kopi.ebics.interfaces.ContentFactory;
 import org.kopi.ebics.schema.h005.EbicsResponseDocument;
 
 /**
@@ -37,8 +37,8 @@ public class TransferResponseElement extends DefaultResponseElement {
      *
      * @param factory the content factory
      */
-    public TransferResponseElement(ContentFactory factory) {
-        super(factory);
+    public TransferResponseElement(ContentFactory factory,String name) {
+        super(factory,name);
     }
 
     @Override
