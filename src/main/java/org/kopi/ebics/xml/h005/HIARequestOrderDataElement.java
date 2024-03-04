@@ -19,12 +19,16 @@
 package org.kopi.ebics.xml.h005;
 
 
-import org.kopi.ebics.session.h005.EbicsSession;
-import org.kopi.ebics.exception.h005.EbicsException;
+import org.kopi.ebics.schema.h003.PubKeyValueType;
+import org.kopi.ebics.schema.xmldsig.RSAKeyValueType;
+import org.kopi.ebics.session.EbicsSession;
+import org.kopi.ebics.exception.EbicsException;
 import org.kopi.ebics.schema.xmldsig.X509DataType;
 import org.kopi.ebics.schema.h005.AuthenticationPubKeyInfoType;
 import org.kopi.ebics.schema.h005.EncryptionPubKeyInfoType;
 import org.kopi.ebics.schema.h005.HIARequestOrderDataType;
+
+import java.util.Calendar;
 
 
 /**
@@ -45,31 +49,40 @@ public class HIARequestOrderDataElement extends DefaultEbicsRootElement {
         super(session);
     }
 
-    @Override
     public void build() throws EbicsException {
-        HIARequestOrderDataType request;
+       HIARequestOrderDataType request;
         AuthenticationPubKeyInfoType authenticationPubKeyInfo;
         EncryptionPubKeyInfoType encryptionPubKeyInfo;
-        X509DataType encryptionX509Data;
-        X509DataType authX509Data;
+        PubKeyValueType encryptionPubKeyValue;
+        X509DataType 			encryptionX509Data;
+        RSAKeyValueType encryptionRsaKeyValue;
+        PubKeyValueType		 	authPubKeyValue;
+        X509DataType 			authX509Data;
+        RSAKeyValueType 			AuthRsaKeyValue;
 
         encryptionX509Data = null;
-        if (session.getUser().isUseCertificate())
-            encryptionX509Data = EbicsXmlFactory.createX509DataType(session.getUser().getDn(),
-                    session.getUserCert().getE002CertificateBytes());
-        encryptionPubKeyInfo = EbicsXmlFactory.createEncryptionPubKeyInfoType(session.getConfiguration().getEncryptionVersion(),
+        if (session.getUser().getPartner().getBank().useCertificate())
+            encryptionX509Data = org.kopi.ebics.xml.EbicsXmlFactory.createX509DataType(session.getUser().getDN(),
+                    session.getUser().getE002Certificate());
+        encryptionRsaKeyValue = org.kopi.ebics.xml.EbicsXmlFactory.createRSAKeyValueType(session.getUser().getE002PublicKey().getPublicExponent().toByteArray(),
+                session.getUser().getE002PublicKey().getModulus().toByteArray());
+        encryptionPubKeyValue = org.kopi.ebics.xml.EbicsXmlFactory.createH003PubKeyValueType(encryptionRsaKeyValue, Calendar.getInstance());
+        encryptionPubKeyInfo = org.kopi.ebics.xml.h005.EbicsXmlFactory.createEncryptionPubKeyInfoType(session.getConfiguration().getEncryptionVersion(),
                 encryptionX509Data);
         authX509Data = null;
-        if (session.getUser().isUseCertificate())
-            authX509Data = EbicsXmlFactory.createX509DataType(session.getUser().getDn(),
-                    session.getUserCert().getX002CertificateBytes());
-        authenticationPubKeyInfo = EbicsXmlFactory.createAuthenticationPubKeyInfoType(session.getConfiguration().getAuthenticationVersion(),
+        if (session.getUser().getPartner().getBank().useCertificate())
+            authX509Data = org.kopi.ebics.xml.EbicsXmlFactory.createX509DataType(session.getUser().getDN(),
+                    session.getUser().getX002Certificate());
+        AuthRsaKeyValue = org.kopi.ebics.xml.EbicsXmlFactory.createRSAKeyValueType(session.getUser().getX002PublicKey().getPublicExponent().toByteArray(),
+                session.getUser().getX002PublicKey().getModulus().toByteArray());
+        authPubKeyValue = org.kopi.ebics.xml.EbicsXmlFactory.createH003PubKeyValueType(AuthRsaKeyValue, Calendar.getInstance());
+        authenticationPubKeyInfo = org.kopi.ebics.xml.h005.EbicsXmlFactory.createAuthenticationPubKeyInfoType(session.getConfiguration().getAuthenticationVersion(),
                 authX509Data);
-        request = EbicsXmlFactory.createHIARequestOrderDataType(authenticationPubKeyInfo,
+        request = org.kopi.ebics.xml.h005.EbicsXmlFactory.createHIARequestOrderDataType(authenticationPubKeyInfo,
                 encryptionPubKeyInfo,
                 session.getUser().getPartner().getPartnerId(),
                 session.getUser().getUserId());
-        document = EbicsXmlFactory.createHIARequestOrderDataDocument(request);
+        document = org.kopi.ebics.xml.h005.EbicsXmlFactory.createHIARequestOrderDataDocument(request);
     }
 
     @Override

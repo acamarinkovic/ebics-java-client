@@ -29,10 +29,10 @@ import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 import org.kopi.ebics.enumeration.h005.EbicsAdminOrderType;
-import org.kopi.ebics.session.h005.EbicsSession;
-import org.kopi.ebics.exception.h005.EbicsException;
-import org.kopi.ebics.interfaces.h005.EbicsRootElement;
-import org.kopi.ebics.utils.h005.Utils;
+import org.kopi.ebics.session.EbicsSession;
+import org.kopi.ebics.exception.EbicsException;
+import org.kopi.ebics.interfaces.EbicsRootElement;
+import org.kopi.ebics.utils.Utils;
 
 import javax.xml.namespace.QName;
 import java.io.*;

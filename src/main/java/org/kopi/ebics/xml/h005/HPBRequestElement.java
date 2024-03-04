@@ -19,8 +19,8 @@
 
 package org.kopi.ebics.xml.h005;
 
-import org.kopi.ebics.session.h005.EbicsSession;
-import org.kopi.ebics.exception.h005.EbicsException;
+import org.kopi.ebics.session.EbicsSession;
+import org.kopi.ebics.exception.EbicsException;
 
 /**
  * The <code>HPBRequestElement</code> is the element to be sent when
@@ -46,7 +46,7 @@ public class HPBRequestElement extends DefaultEbicsRootElement {
 
         noPubKeyDigestsRequest = new NoPubKeyDigestsRequestElement(session);
         noPubKeyDigestsRequest.build();
-        signedInfo = new SignedInfo(session.getUserCert(), noPubKeyDigestsRequest.getDigest());
+        signedInfo = new SignedInfo(session.getUser(), noPubKeyDigestsRequest.getDigest());
         signedInfo.build();
         noPubKeyDigestsRequest.setAuthSignature(signedInfo.getSignatureType());
         signature = signedInfo.sign(noPubKeyDigestsRequest.toByteArray());

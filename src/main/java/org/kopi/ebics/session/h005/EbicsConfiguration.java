@@ -1,12 +1,9 @@
 package org.kopi.ebics.session.h005;
 
-import org.kopi.ebics.client.h005.user.EbicsUser;
-import org.kopi.ebics.interfaces.EbicsLogger;
-import org.kopi.ebics.interfaces.SerializationManager;
-import org.kopi.ebics.interfaces.TraceManager;
-import org.kopi.ebics.interfaces.h005.LetterManager;
+import org.kopi.ebics.interfaces.*;
 import org.kopi.ebics.io.IOUtils;
-import org.kopi.ebics.letter.h005.DefaultLetterManager;
+
+import org.kopi.ebics.letter.DefaultLetterManager;
 import org.kopi.ebics.session.DefaultEbicsLogger;
 import org.kopi.ebics.session.DefaultSerializationManager;
 import org.kopi.ebics.session.DefaultTraceManager;
@@ -17,7 +14,7 @@ import java.util.MissingResourceException;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
-public class EbicsConfiguration {
+public class EbicsConfiguration  implements Configuration {
 
     private static final String RESOURCE_DIR = "org.kopi.ebics.client_H005.config";
 
@@ -102,6 +99,11 @@ public class EbicsConfiguration {
 
     public String getProperty(String key) {
         return properties.getProperty(key);
+    }
+
+    @Override
+    public Properties getPropertes() {
+      return  properties;
     }
 
     public String getKeystoreDirectory(EbicsUser user) {

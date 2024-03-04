@@ -20,10 +20,10 @@
 package org.kopi.ebics.xml.h005;
 
 import org.kopi.ebics.enumeration.h005.EbicsAdminOrderType;
-import org.kopi.ebics.exception.h005.EbicsException;
+import org.kopi.ebics.exception.EbicsException;
 import org.kopi.ebics.exception.h005.EbicsReturnCode;
-import org.kopi.ebics.exception.h005.NoDownloadDataAvailableException;
-import org.kopi.ebics.interfaces.h005.ContentFactory;
+import org.kopi.ebics.exception.NoDownloadDataAvailableException;
+import org.kopi.ebics.interfaces.ContentFactory;
 
 /**
  * The <code>DInitializationResponseElement</code> is the response element
@@ -34,8 +34,9 @@ import org.kopi.ebics.interfaces.h005.ContentFactory;
 public class DownloadInitializationResponseElement extends InitializationResponseElement {
 
     public DownloadInitializationResponseElement(ContentFactory factory,
-                                                 EbicsAdminOrderType orderType) {
-        super(factory, orderType);
+                                                 EbicsAdminOrderType orderType
+    ,String name) {
+        super(factory, orderType,name);
     }
 
     @Override

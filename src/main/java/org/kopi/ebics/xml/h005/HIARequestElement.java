@@ -20,9 +20,9 @@
 package org.kopi.ebics.xml.h005;
 
 import org.kopi.ebics.enumeration.h005.EbicsAdminOrderType;
-import org.kopi.ebics.session.h005.EbicsSession;
-import org.kopi.ebics.exception.h005.EbicsException;
-import org.kopi.ebics.utils.h005.Utils;
+import org.kopi.ebics.session.EbicsSession;
+import org.kopi.ebics.exception.EbicsException;
+import org.kopi.ebics.utils.Utils;
 
 /**
  * The <code>HIARequestElement</code> is the root element used
@@ -38,8 +38,9 @@ public class HIARequestElement extends DefaultEbicsRootElement {
    * Constructs a new HIA Request root element
    * @param session the current ebics session
    */
-  public HIARequestElement(EbicsSession session) {
+  public HIARequestElement(EbicsSession session, String orderId) {
     super(session);
+    this.orderId = orderId;
   }
 
   @Override
@@ -69,7 +70,7 @@ public class HIARequestElement extends DefaultEbicsRootElement {
   // --------------------------------------------------------------------
   // DATA MEMBERS
   // --------------------------------------------------------------------
-
+  private String			orderId;
   private HIARequestOrderDataElement requestOrderData;
   private UnsecuredRequestElement unsecuredRequest;
   private static final long 		serialVersionUID = 1130436605993828777L;

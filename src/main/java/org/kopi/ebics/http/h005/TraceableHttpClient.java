@@ -44,13 +44,13 @@ public class TraceableHttpClient implements HttpClient, ITraceableHttpClient {
     @Override
     public ByteArrayContentFactory sendAndTrace(HttpClientRequest request, IBaseTraceSession traceSession) throws HttpClientException {
         try {
-            //traceManager.trace(request.getContent(), traceSession, true);
+            traceManager.trace(request.getContent(), traceSession, true);
             ByteArrayContentFactory response = simpleHttpClient.send(request);
-            //traceManager.trace(response, traceSession, false);
-            //traceManager.updateLastTrace(traceSession, TraceCategory.RequestOk);
+            traceManager.trace(response, traceSession, false);
+            traceManager.updateLastTrace(traceSession, TraceCategory.RequestOk);
             return response;
         } catch (HttpClientException e) {
-            //traceManager.updateLastTrace(traceSession, TraceCategory.RequestError, e);
+            traceManager.updateLastTrace(traceSession, TraceCategory.RequestError, e);
             throw e;
         } catch (IOException | URISyntaxException e) {
             throw new RuntimeException(e);

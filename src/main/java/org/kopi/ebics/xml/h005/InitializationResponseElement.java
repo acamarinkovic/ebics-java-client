@@ -20,9 +20,9 @@
 package org.kopi.ebics.xml.h005;
 
 import org.kopi.ebics.enumeration.h005.EbicsAdminOrderType;
-import org.kopi.ebics.exception.h005.EbicsException;
+import org.kopi.ebics.exception.EbicsException;
 import org.kopi.ebics.exception.h005.EbicsReturnCode;
-import org.kopi.ebics.interfaces.h005.ContentFactory;
+import org.kopi.ebics.interfaces.ContentFactory;
 import org.kopi.ebics.schema.h005.EbicsResponseDocument;
 
 /**
@@ -40,8 +40,9 @@ public class InitializationResponseElement extends DefaultResponseElement {
      * @param orderType the order type
      */
     public InitializationResponseElement(ContentFactory factory,
-                                         EbicsAdminOrderType orderType) {
-        super(factory);
+                                         EbicsAdminOrderType orderType,
+                                         String name) {
+        super(factory,name);
         this.orderType = orderType;
     }
 

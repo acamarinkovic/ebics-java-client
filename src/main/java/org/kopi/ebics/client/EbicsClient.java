@@ -41,6 +41,11 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.kopi.ebics.client.h005.FileTransferV5;
+import org.kopi.ebics.client.h005.KeyManagementV5;
+import org.kopi.ebics.enumeration.h005.AttributeType;
+import org.kopi.ebics.enumeration.h005.ContainerType;
+import org.kopi.ebics.enumeration.h005.EbicsAdminOrderType;
 import org.kopi.ebics.exception.EbicsException;
 import org.kopi.ebics.exception.NoDownloadDataAvailableException;
 import org.kopi.ebics.interfaces.Configuration;
@@ -52,11 +57,16 @@ import org.kopi.ebics.interfaces.LetterManager;
 import org.kopi.ebics.interfaces.PasswordCallback;
 import org.kopi.ebics.io.IOUtils;
 import org.kopi.ebics.messages.Messages;
+import org.kopi.ebics.order.h005.EbicsDownloadOrder;
+import org.kopi.ebics.order.h005.EbicsMessage;
+import org.kopi.ebics.order.h005.EbicsService;
+import org.kopi.ebics.order.h005.EbicsUploadOrder;
 import org.kopi.ebics.schema.h003.OrderAttributeType;
 import org.kopi.ebics.session.DefaultConfiguration;
 import org.kopi.ebics.session.EbicsSession;
 import org.kopi.ebics.session.OrderType;
 import org.kopi.ebics.session.Product;
+import org.kopi.ebics.session.h005.EbicsConfiguration;
 import org.kopi.ebics.utils.Constants;
 
 /**
@@ -293,6 +303,116 @@ public class EbicsClient {
         }
     }
 
+    public void sendINIRequest(User user, Product product, int version) throws Exception {
+        if(version==5){
+            sendINIRequestV5(user,product);
+        }else{
+            sendINIRequest(user,product);
+        }
+    }
+    public void sendHIARequest(User user, Product product, int version) throws Exception {
+        if(version==5){
+            sendHIARequestV5(user,product);
+        }else{
+            sendHIARequest(user,product);
+        }
+    }
+
+    public void sendHPBRequest(User user, Product product, int version) throws Exception {
+        if(version==5){
+            sendHPBRequestV5(user,product);
+        }else{
+            sendHPBRequest(user,product);
+        }
+    }
+
+    public void fetchFile(File file, EbicsOrderType orderType, Date start, Date end, int version) throws Exception {
+        if(version==5){
+            fetchFileV5(file,orderType,start,end);
+        }else{
+            fetchFile(file,orderType,start,end);
+        }
+    }
+
+    public void sendFile(File file, EbicsOrderType orderType,int version) throws Exception {
+        if(version==5){
+            sendFileV5(file,orderType);
+        }else{
+            sendFile(file,orderType);
+        }
+    }
+
+    /**
+     * Sends an INI request to the ebics bank server
+     *
+     * @param user    the user
+     * @param product the application product
+     * @throws Exception
+     */
+
+
+    public void sendHPBRequestV5(User user, Product product) throws Exception {
+        String userId = user.getUserId();
+        configuration.getLogger().info(messages.getString("hpb.request.send", userId));
+
+        EbicsSession session = createSession(user, product);
+        KeyManagementV5 keyManager = new KeyManagementV5(session);
+
+        configuration.getTraceManager().setTraceDirectory(
+                configuration.getTransferTraceDirectory(user));
+
+        try {
+            keyManager.sendHPB();
+            configuration.getLogger().info(messages.getString("hpb.send.success", userId));
+        } catch (Exception e) {
+            configuration.getLogger().error(messages.getString("hpb.send.error", userId), e);
+            throw e;
+        }
+    }
+    public void sendINIRequestV5(User user, Product product) throws Exception {
+        String userId = user.getUserId();
+        configuration.getLogger().info(messages.getString("ini.request.send", userId));
+        if (user.isInitialized()) {
+            configuration.getLogger().info(messages.getString("user.already.initialized", userId));
+            return;
+        }
+        EbicsSession session = createSession(user, product);
+        KeyManagementV5 keyManager = new KeyManagementV5(session);
+        configuration.getTraceManager().setTraceDirectory(
+                configuration.getTransferTraceDirectory(user));
+        try {
+            keyManager.sendINI(null);
+            user.setInitialized(true);
+            configuration.getLogger().info(messages.getString("ini.send.success", userId));
+        } catch (Exception e) {
+            configuration.getLogger().error(messages.getString("ini.send.error", userId), e);
+            throw e;
+        }
+    }
+
+
+    public void sendHIARequestV5(User user, Product product) throws Exception {
+        String userId = user.getUserId();
+        configuration.getLogger().info(messages.getString("hia.request.send", userId));
+        if (user.isInitializedHIA()) {
+            configuration.getLogger()
+                    .info(messages.getString("user.already.hia.initialized", userId));
+            return;
+        }
+        EbicsSession session = createSession(user, product);
+        KeyManagementV5 keyManager = new KeyManagementV5(session);
+        configuration.getTraceManager().setTraceDirectory(
+                configuration.getTransferTraceDirectory(user));
+        try {
+            keyManager.sendHIA(null);
+            user.setInitializedHIA(true);
+        } catch (Exception e) {
+            configuration.getLogger().error(messages.getString("hia.send.error", userId), e);
+            throw e;
+        }
+        configuration.getLogger().info(messages.getString("hia.send.success", userId));
+    }
+
     /**
      * Sends a HIA request to the ebics server.
      *
@@ -431,6 +551,101 @@ public class EbicsClient {
         fetchFile(file, defaultUser, defaultProduct, orderType, false, start, end);
     }
 
+
+    public void fetchFileV5(File file, User user, Product product, EbicsOrderType orderType,
+                            boolean isTest, Date start, Date end) throws IOException, EbicsException {
+        EbicsSession session = createSession(user, product);
+        session.addSessionParam("FORMAT", "pain.xxx.cfonb160.dct");
+        if (isTest) {
+            session.addSessionParam("TEST", "true");
+        }
+        FileTransferV5 transferManager = new FileTransferV5(session);
+
+        EbicsMessage directDebitMessage = new EbicsMessage(
+                "Download ", // messageName
+                "Variant",       // messageNameVariant
+                "Version",       // messageNameVersion
+                "Format"         // messageNameFormat
+        );
+
+        // Create a ContainerType for Direct Debit
+        ContainerType containerType = ContainerType.XML;
+
+        // Create a new EbicsService object for Direct Debit
+        EbicsService ebicsService = new EbicsService(
+                "Download",
+                orderType.getCode(),
+                "Global", // Scope can be global for example
+                containerType,
+                directDebitMessage
+        );
+
+        configuration.getTraceManager().setTraceDirectory(
+                configuration.getTransferTraceDirectory(user));
+        EbicsDownloadOrder ebicsDownloadOrder= new EbicsDownloadOrder(EbicsAdminOrderType.BTD,ebicsService,start,end,session.getParameters());
+        try {
+            transferManager.fetchFile(ebicsDownloadOrder, file);
+        } catch (NoDownloadDataAvailableException e) {
+            // don't log this exception as an error, caller can decide how to handle
+            throw e;
+        } catch (Exception e) {
+            configuration.getLogger().error(messages.getString("download.file.error"), e);
+            throw e;
+        }
+    }
+
+    public void fetchFileV5(File file, EbicsOrderType orderType, Date start, Date end) throws IOException,
+            EbicsException {
+        fetchFileV5(file, defaultUser, defaultProduct, orderType, false, start, end);
+    }
+
+    public void sendFileV5(File file, User user, Product product, EbicsOrderType orderType) throws Exception {
+        EbicsSession session = createSession(user, product);
+        AttributeType orderAttribute = AttributeType.OZHNN;
+
+        String name = "Credit Transfer";
+        if (orderType.getCode().equals(OrderType.CDD.getCode())) {
+            name = "Direct Debit";
+        }
+
+        FileTransferV5 transferManager = new FileTransferV5(session);
+        EbicsMessage directDebitMessage = new EbicsMessage(
+                name, // messageName
+                "Variant",       // messageNameVariant
+                "Version",       // messageNameVersion
+                "Format"         // messageNameFormat
+        );
+
+        // Create a ContainerType for Direct Debit
+        ContainerType containerType = ContainerType.XML;
+
+        // Create a new EbicsService object for Direct Debit
+        EbicsService ebicsService = new EbicsService(
+                name,
+                orderType.getCode(),
+                "Global", // Scope can be global for example
+                containerType,
+                directDebitMessage
+        );
+
+        EbicsUploadOrder ebicsUploadOrder = new EbicsUploadOrder(ebicsService, true, false, file.getName(), session.getParameters());
+        configuration.getTraceManager().setTraceDirectory(
+                configuration.getTransferTraceDirectory(user));
+
+        try {
+            transferManager.sendFile(IOUtils.getFileContent(file), ebicsUploadOrder);
+        } catch (IOException | EbicsException e) {
+            configuration.getLogger()
+                    .error(messages.getString("upload.file.error", file.getAbsolutePath()), e);
+            throw e;
+        }
+    }
+
+    public void sendFileV5(File file, EbicsOrderType orderType) throws Exception {
+        sendFileV5(file, defaultUser, defaultProduct, orderType);
+    }
+
+
     /**
      * Performs buffers save before quitting the client application.
      */
@@ -518,22 +733,33 @@ public class EbicsClient {
         return line;
     }
 
-    public static EbicsClient createEbicsClient(File rootDir, File configFile) throws IOException {
+    public static EbicsClient createEbicsClient(File rootDir, File configFile, int version) throws IOException {
         ConfigProperties properties = new ConfigProperties(configFile);
         final String country = properties.get("countryCode").toUpperCase();
         final String language = properties.get("languageCode").toLowerCase();
         final String productName = properties.get("productName");
 
         final Locale locale = new Locale(language, country);
+        Configuration configuration;
+        if(version==5){
+            configuration = new EbicsConfiguration(rootDir.getAbsolutePath(),
+                    properties.properties) {
 
-        DefaultConfiguration configuration = new DefaultConfiguration(rootDir.getAbsolutePath(),
-            properties.properties) {
+                @Override
+                public Locale getLocale() {
+                    return locale;
+                }
+            };
+        }else {
+            configuration = new DefaultConfiguration(rootDir.getAbsolutePath(),
+                    properties.properties) {
 
-            @Override
-            public Locale getLocale() {
-                return locale;
-            }
-        };
+                @Override
+                public Locale getLocale() {
+                    return locale;
+                }
+            };
+        }
 
         EbicsClient client = new EbicsClient(configuration, properties);
 
@@ -606,6 +832,10 @@ public class EbicsClient {
         addOption(options, OrderType.XE2, "Send XE2 file (any format)");
         addOption(options, OrderType.CCT, "Send CCT file (any format)");
 
+        addOption(options, OrderType.UPL, "Send CCT file (any format)");
+        addOption(options, OrderType.DNL, "Send CCT file (any format)");
+        addOption(options, OrderType.BTU, "Send CCT file (any format)");
+        addOption(options, OrderType.BTD, "Send CCT file (any format)");
         options.addOption(null, "skip_order", true, "Skip a number of order ids");
 
         options.addOption("o", "output", true, "output file");
@@ -617,7 +847,7 @@ public class EbicsClient {
         File defaultRootDir = new File(System.getProperty("user.home") + File.separator + "ebics"
             + File.separator + "client");
         File ebicsClientProperties = new File(defaultRootDir, "ebics.txt");
-        EbicsClient client = createEbicsClient(defaultRootDir, ebicsClientProperties);
+        EbicsClient client = createEbicsClient(defaultRootDir, ebicsClientProperties,3);
 
         if (cmd.hasOption("create")) {
             client.createDefaultUser();

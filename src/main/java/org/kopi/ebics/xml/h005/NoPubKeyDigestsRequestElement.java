@@ -20,10 +20,10 @@
 package org.kopi.ebics.xml.h005;
 
 import org.kopi.ebics.enumeration.h005.EbicsAdminOrderType;
-import org.kopi.ebics.session.h005.EbicsSession;
-import org.kopi.ebics.exception.h005.EbicsException;
+import org.kopi.ebics.session.EbicsSession;
+import org.kopi.ebics.exception.EbicsException;
 import org.kopi.ebics.schema.xmldsig.SignatureType;
-import org.kopi.ebics.utils.h005.Utils;
+import org.kopi.ebics.utils.Utils;
 import org.kopi.ebics.schema.h005.*;
 
 import java.util.Calendar;

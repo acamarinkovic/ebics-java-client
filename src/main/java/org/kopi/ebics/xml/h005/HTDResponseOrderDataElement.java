@@ -1,9 +1,9 @@
 package org.kopi.ebics.xml.h005;
 
 import org.kopi.ebics.enumeration.h005.EbicsAdminOrderType;
-import org.kopi.ebics.exception.h005.EbicsException;
-import org.kopi.ebics.interfaces.h005.ContentFactory;
-import org.kopi.ebics.io.h005.ByteArrayContentFactory;
+import org.kopi.ebics.exception.EbicsException;
+import org.kopi.ebics.interfaces.ContentFactory;
+import org.kopi.ebics.io.ByteArrayContentFactory;
 import org.kopi.ebics.order.h005.EbicsMessage;
 import org.kopi.ebics.order.h005.EbicsService;
 import org.kopi.ebics.order.h005.OrderType;

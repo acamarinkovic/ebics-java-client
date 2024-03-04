@@ -5,7 +5,7 @@ import org.apache.xml.security.utils.IgnoreAllErrorHandler;
 import org.apache.xmlbeans.XmlObject;
 import org.apache.xpath.XPathAPI;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.kopi.ebics.exception.h005.EbicsException;
+import org.kopi.ebics.exception.EbicsException;
 import org.kopi.ebics.messages.Messages;
 import org.kopi.ebics.utils.Constants;
 import org.w3c.dom.Document;

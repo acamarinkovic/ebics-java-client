@@ -1,8 +1,10 @@
 package org.kopi.ebics.certificate.h005;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.kopi.ebics.client.User;
+import org.kopi.ebics.interfaces.EbicsUser;
 import org.kopi.ebics.utils.h005.CryptoUtils;
-import org.kopi.ebics.exception.h005.EbicsException;
+import org.kopi.ebics.exception.EbicsException;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
@@ -40,7 +42,18 @@ public class UserCertificateManager implements IUserCertificateManager{
         this.e002PrivateKey = e002PrivateKey;
     }
 
-    
+    public UserCertificateManager(
+            EbicsUser user
+
+    ) {
+        this.a005Certificate = user.getA005CertificateX509();
+        this.x002Certificate = user.getX002CertificateX509();
+        this.e002Certificate = user.getE002CertificateX509();
+        this.a005PrivateKey = user.getA005PrivateKey();
+        this.x002PrivateKey = user.getX002PrivateKey();
+        this.e002PrivateKey = user.getE002PrivateKey();
+    }
+
     public byte[] getA005CertificateBytes() throws EbicsException {
         return getCertificateBytes(a005Certificate);
     }

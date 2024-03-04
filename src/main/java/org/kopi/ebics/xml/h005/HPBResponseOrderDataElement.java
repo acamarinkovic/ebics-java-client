@@ -19,8 +19,8 @@
 
 package org.kopi.ebics.xml.h005;
 
-import org.kopi.ebics.exception.h005.EbicsException;
-import org.kopi.ebics.interfaces.h005.ContentFactory;
+import org.kopi.ebics.exception.EbicsException;
+import org.kopi.ebics.interfaces.ContentFactory;
 import org.kopi.ebics.schema.h005.*;
 
 /**

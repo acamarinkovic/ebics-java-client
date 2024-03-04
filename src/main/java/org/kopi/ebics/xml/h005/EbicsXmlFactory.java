@@ -28,7 +28,7 @@ import org.kopi.ebics.order.h005.EbicsUploadOrder;
 import org.kopi.ebics.order.h005.IEbicsMessage;
 import org.kopi.ebics.order.h005.IEbicsService;
 import org.kopi.ebics.schema.s002.*;
-import org.kopi.ebics.session.h005.EbicsProduct;
+import org.kopi.ebics.session.Product;
 import org.kopi.ebics.schema.xmldsig.SignatureType;
 import org.kopi.ebics.schema.xmldsig.*;
 import org.kopi.ebics.schema.h005.*;
@@ -405,7 +405,7 @@ public class EbicsXmlFactory {
      * @param product the product infos
      * @return the <code>ProductElementType</code> XML object
      */
-    public static ProductElementType createProductElementType(EbicsProduct product) {
+    public static ProductElementType createProductElementType(Product product) {
         ProductElementType newProductElementType = ProductElementType.Factory.newInstance();
         newProductElementType.setLanguage(product.getLanguage());
         newProductElementType.setStringValue(product.getName());
@@ -1017,7 +1017,7 @@ public class EbicsXmlFactory {
      * @param product the product infos
      * @return the <code>Product</code> XML object
      */
-    public static StaticHeaderType.Product createProduct(EbicsProduct product) {
+    public static StaticHeaderType.Product createProduct(Product product) {
       StaticHeaderType.Product newProduct = StaticHeaderType.Product.Factory.newInstance();
         newProduct.setLanguage(product.getLanguage());
         newProduct.setStringValue(product.getName());

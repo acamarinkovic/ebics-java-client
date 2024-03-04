@@ -175,4 +175,18 @@ public interface EbicsUser {
    */
   public byte[] decrypt(byte[] encryptedKey, byte[] transactionKey)
     throws GeneralSecurityException, IOException, EbicsException;
+
+
+  public PrivateKey getA005PrivateKey();
+
+  public PrivateKey getE002PrivateKey();
+
+  public PrivateKey getX002PrivateKey();
+
+  public X509Certificate getA005CertificateX509();
+
+  public X509Certificate getE002CertificateX509();
+
+  public X509Certificate getX002CertificateX509();
+
 }

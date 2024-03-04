@@ -19,9 +19,9 @@
 
 package org.kopi.ebics.xml.h005;
 
-import org.kopi.ebics.exception.h005.EbicsException;
+import org.kopi.ebics.exception.EbicsException;
 import org.kopi.ebics.exception.h005.EbicsReturnCode;
-import org.kopi.ebics.interfaces.h005.ContentFactory;
+import org.kopi.ebics.interfaces.ContentFactory;
 import org.kopi.ebics.schema.h005.EbicsResponseDocument;
 
 /**
@@ -37,10 +37,14 @@ public class ReceiptResponseElement extends DefaultResponseElement {
      *
      * @param factory the content factory
      */
-    public ReceiptResponseElement(ContentFactory factory) {
+    public ReceiptResponseElement(ContentFactory factory, String name) {
         super(factory);
+        this.name=name;
     }
-
+    @Override
+    public String getName() {
+        return name  + ".xml";
+    }
     @Override
     public void build() throws EbicsException {
         String code;
@@ -65,6 +69,6 @@ public class ReceiptResponseElement extends DefaultResponseElement {
     // --------------------------------------------------------------------
     // DATA MEMBERS
     // --------------------------------------------------------------------
-
+    private String			name;
     private static final long serialVersionUID = 2994403708414164919L;
 }

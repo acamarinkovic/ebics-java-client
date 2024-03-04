@@ -1,6 +1,7 @@
 package org.kopi.ebics.interfaces.h005;
 
 import org.kopi.ebics.enumeration.h005.EbicsVersion;
+import org.kopi.ebics.interfaces.EbicsBank;
 
 public interface IBaseTraceSession {
     EbicsBank getBank();

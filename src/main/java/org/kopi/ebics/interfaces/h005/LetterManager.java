@@ -1,8 +1,8 @@
 package org.kopi.ebics.interfaces.h005;
 
 import org.kopi.ebics.certificate.h005.UserCertificateManager;
-import org.kopi.ebics.client.h005.user.EbicsUser;
-import org.kopi.ebics.exception.h005.EbicsException;
+import org.kopi.ebics.exception.EbicsException;
+import org.kopi.ebics.interfaces.EbicsUser;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;

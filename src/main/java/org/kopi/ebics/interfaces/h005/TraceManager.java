@@ -1,7 +1,7 @@
 package org.kopi.ebics.interfaces.h005;
 
 import org.kopi.ebics.enumeration.h005.TraceCategory;
-import org.kopi.ebics.exception.h005.EbicsException;
+import org.kopi.ebics.exception.EbicsException;
 import org.kopi.ebics.exception.h005.EbicsServerException;
 
 

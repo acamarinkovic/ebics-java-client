@@ -20,8 +20,8 @@
 package org.kopi.ebics.xml.h005;
 
 import org.kopi.ebics.enumeration.h005.EbicsAdminOrderType;
-import org.kopi.ebics.session.h005.EbicsSession;
-import org.kopi.ebics.exception.h005.EbicsException;
+import org.kopi.ebics.session.EbicsSession;
+import org.kopi.ebics.exception.EbicsException;
 import org.kopi.ebics.schema.h005.*;
 
 /**
@@ -59,7 +59,6 @@ public class UnsecuredRequestElement extends DefaultEbicsRootElement {
         EbicsUnsecuredRequestDocument.EbicsUnsecuredRequest request;
 
         orderDetails = EbicsXmlFactory.createOrderDetailsType(orderType.toString());
-
         productType = EbicsXmlFactory.createProductElementType(session.getProduct());
 
         xstatic = EbicsXmlFactory.createUnsecuredRequestStaticHeaderType(session.getBankID(),
@@ -86,6 +85,7 @@ public class UnsecuredRequestElement extends DefaultEbicsRootElement {
     // DATA MEMBERS
     // --------------------------------------------------------------------
 
+    private String			orderId;
     private EbicsAdminOrderType orderType;
     private byte[] orderData;
     private static final long serialVersionUID = -3548730114599886711L;

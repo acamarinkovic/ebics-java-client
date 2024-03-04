@@ -20,8 +20,8 @@
 package org.kopi.ebics.xml.h005;
 
 import org.kopi.ebics.enumeration.h005.EbicsAdminOrderType;
-import org.kopi.ebics.session.h005.EbicsSession;
-import org.kopi.ebics.exception.h005.EbicsException;
+import org.kopi.ebics.session.EbicsSession;
+import org.kopi.ebics.exception.EbicsException;
 import org.kopi.ebics.schema.h005.EbicsRequestDocument;
 
 
@@ -62,7 +62,7 @@ public abstract class TransferRequestElement extends DefaultEbicsRootElement {
         SignedInfo signedInfo;
 
         buildTransfer();
-        signedInfo = new SignedInfo(session.getUserCert(), getDigest());
+        signedInfo = new SignedInfo(session.getUser(), getDigest());
         signedInfo.build();
         ((EbicsRequestDocument) document).getEbicsRequest().setAuthSignature(signedInfo.getSignatureType());
         ((EbicsRequestDocument) document).getEbicsRequest().getAuthSignature().setSignatureValue(EbicsXmlFactory.createSignatureValueType(signedInfo.sign(toByteArray())));

@@ -19,9 +19,8 @@
 
 package org.kopi.ebics.xml.h005;
 
-import org.kopi.ebics.client.h005.user.EbicsUser;
-import org.kopi.ebics.certificate.h005.UserCertificateManager;
-import org.kopi.ebics.exception.h005.EbicsException;
+import org.kopi.ebics.interfaces.EbicsUser;
+import org.kopi.ebics.exception.EbicsException;
 import org.kopi.ebics.schema.s002.OrderSignatureDataType;
 import org.kopi.ebics.schema.s002.UserSignatureDataSigBookType;
 
@@ -47,12 +46,10 @@ public class UserSignature extends DefaultEbicsRootElement {
      * @param toSign           the data to be signed
      */
     public UserSignature(EbicsUser user,
-                         UserCertificateManager userCert,
                          String name,
                          String signatureVersion,
                          byte[] toSign) {
         this.user = user;
-        this.userCert = userCert;
         this.toSign = toSign;
         this.name = name;
         this.signatureVersion = signatureVersion;
@@ -65,7 +62,7 @@ public class UserSignature extends DefaultEbicsRootElement {
         byte[] signature;
 
         try {
-            signature = userCert.sign(toSign);
+            signature = user.sign(toSign);
         } catch (IOException | GeneralSecurityException e) {
             throw new EbicsException(e.getMessage());
         }
@@ -90,7 +87,6 @@ public class UserSignature extends DefaultEbicsRootElement {
     // --------------------------------------------------------------------
 
     private EbicsUser user;
-    private UserCertificateManager userCert;
     private String signatureVersion;
     private byte[] toSign;
     private String name;

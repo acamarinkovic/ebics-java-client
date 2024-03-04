@@ -1,7 +1,7 @@
 package org.kopi.ebics.client.h005;
 
 import org.kopi.ebics.interfaces.Savable;
-import org.kopi.ebics.interfaces.h005.EbicsBank;
+import org.kopi.ebics.interfaces.EbicsBank;
 import org.kopi.ebics.interfaces.h005.EbicsPartner;
 
 import java.io.IOException;

@@ -20,8 +20,8 @@
 package org.kopi.ebics.xml.h005;
 
 import org.kopi.ebics.enumeration.h005.EbicsAdminOrderType;
-import org.kopi.ebics.exception.h005.EbicsException;
-import org.kopi.ebics.interfaces.h005.ContentFactory;
+import org.kopi.ebics.exception.EbicsException;
+import org.kopi.ebics.interfaces.ContentFactory;
 
 /**
  * The <code>DTransferResponseElement</code> is the response element
@@ -38,8 +38,8 @@ public class DownloadTransferResponseElement extends TransferResponseElement {
      * @param orderType the order type
      */
     public DownloadTransferResponseElement(ContentFactory factory,
-                                           EbicsAdminOrderType orderType) {
-        super(factory);
+                                          String name) {
+        super(factory,name);
     }
 
     @Override

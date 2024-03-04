@@ -1,7 +1,7 @@
 package org.kopi.ebics.http.h005.factory;
 
-import org.kopi.ebics.interfaces.h005.EbicsBank;
-import org.kopi.ebics.session.h005.EbicsSession;
+import org.kopi.ebics.interfaces.EbicsBank;
+import org.kopi.ebics.session.EbicsSession;
 
 import java.net.URL;
 
@@ -16,7 +16,7 @@ public class HttpTransferSession implements IHttpTransferSession{
     }
 
     public HttpTransferSession(EbicsBank ebicsBank) {
-        this(ebicsBank.getURL(), ebicsBank.getHttpClientConfigurationName());
+        this(ebicsBank.getURL(), ebicsBank.getName());
     }
 
     public HttpTransferSession(EbicsSession ebicsSession) {

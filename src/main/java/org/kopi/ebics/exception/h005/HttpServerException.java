@@ -1,5 +1,7 @@
 package org.kopi.ebics.exception.h005;
 
+import org.kopi.ebics.exception.EbicsException;
+
 public class HttpServerException extends EbicsException implements IErrorCodeText{
 
     private final String errorCode;
