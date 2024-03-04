@@ -334,6 +334,26 @@ public class EbicsClient {
         }
     }
 
+    public void fetchFile(File file, User user, Product product, EbicsOrderType orderType,
+                          boolean isTest, Date start, Date end, int version) throws Exception {
+        if(version==5){
+            fetchFileV5(file, defaultUser, defaultProduct, orderType, false, start, end);
+        }else{
+            fetchFile(file, defaultUser, defaultProduct, orderType, false, start, end);
+        }
+    }
+
+
+
+
+    public void sendFile(File file, User user, Product product, EbicsOrderType orderType,int version) throws Exception {
+        if(version==5){
+            sendFileV5(file, defaultUser, defaultProduct, orderType);
+        }else{
+            sendFile(file, defaultUser, defaultProduct, orderType);
+        }
+    }
+
     public void sendFile(File file, EbicsOrderType orderType,int version) throws Exception {
         if(version==5){
             sendFileV5(file,orderType);
