@@ -31,7 +31,9 @@ public interface EbicsElement extends Serializable {
    * Returns the name of this <code>EbicsElement</code>
    * @return the name of the element
    */
-  public String getName();
+  public default String getName(){
+    return  this.getClass().getName();
+  };
 
   /**
    * Builds the <code>EbicsElement</code> XML fragment

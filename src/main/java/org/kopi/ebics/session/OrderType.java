@@ -61,7 +61,11 @@ public enum OrderType implements EbicsOrderType {
     XCT,
     C52,
     C53,
-    C54;
+    C54,
+    UPL,  //EBICS 2.4/2.5 DE Upload (standard business order types)
+    DNL,  //EBICS 2.4/2.5 DE Download (standard business order types)
+    BTU,  //EBICS 3.0 Upload
+    BTD; //EBICS 3.0 Download
 
     @Override
     public String getCode() {

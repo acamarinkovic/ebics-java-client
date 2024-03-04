@@ -20,6 +20,7 @@
 package org.kopi.ebics.interfaces;
 
 import java.util.Locale;
+import java.util.Properties;
 
 
 /**
@@ -61,6 +62,8 @@ public interface Configuration {
    * @return the property value
    */
   public String getProperty(String key);
+
+  public Properties getPropertes();
 
   /**
    * Returns the directory path of the key store that contains

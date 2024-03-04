@@ -128,6 +128,11 @@ public class DefaultConfiguration implements Configuration {
   }
 
   @Override
+  public Properties getPropertes() {
+    return this.properties;
+  }
+
+  @Override
   public String getKeystoreDirectory(EbicsUser user) {
     return getUserDirectory(user) + File.separator + getString("keystore.dir.name");
   }

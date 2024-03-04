@@ -602,4 +602,42 @@ public class User implements EbicsUser, Savable {
   private X509Certificate			a005Certificate;
   private X509Certificate			e002Certificate;
   private X509Certificate			x002Certificate;
+
+  public String getDn() {
+    return dn;
+  }
+
+  public boolean isNeedSave() {
+    return needSave;
+  }
+
+  public CertificateManager getManager() {
+    return manager;
+  }
+  @Override
+  public PrivateKey getA005PrivateKey() {
+    return a005PrivateKey;
+  }
+  @Override
+  public PrivateKey getE002PrivateKey() {
+    return e002PrivateKey;
+  }
+  @Override
+  public PrivateKey getX002PrivateKey() {
+    return x002PrivateKey;
+  }
+  @Override
+  public X509Certificate getA005CertificateX509() {
+    return a005Certificate;
+  }
+  @Override
+  public X509Certificate getE002CertificateX509() {
+    return e002Certificate;
+  }
+
+  @Override
+  public X509Certificate getX002CertificateX509() {
+    return x002Certificate;
+  }
+
 }
