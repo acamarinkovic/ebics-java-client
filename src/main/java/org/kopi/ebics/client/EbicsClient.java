@@ -522,6 +522,14 @@ public class EbicsClient {
      */
     public void sendFile(File file, User user, Product product, EbicsOrderType orderType) throws Exception {
         EbicsSession session = createSession(user, product);
+
+
+        int iterationCount = 20; // extracted constant, a meaningful name could replace "iterationCount"
+
+        for(int orderId=0; orderId<iterationCount; orderId++){
+             session.getUser().getPartner().nextOrderId(); // extracting the next order id
+        }
+
         OrderAttributeType.Enum orderAttribute = OrderAttributeType.OZHNN;
 
         FileTransfer transferManager = new FileTransfer(session);
