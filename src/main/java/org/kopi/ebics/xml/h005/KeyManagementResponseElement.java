@@ -44,6 +44,9 @@ public class KeyManagementResponseElement extends DefaultResponseElement {
         super(factory);
     }
 
+    public KeyManagementResponseElement(ContentFactory factory, String name) {
+        super(factory, name);
+    }
     /**
      * Returns the transaction key of the response.
      *

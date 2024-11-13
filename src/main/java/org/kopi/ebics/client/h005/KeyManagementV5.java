@@ -28,7 +28,7 @@ import org.kopi.ebics.interfaces.ContentFactory;
 import org.kopi.ebics.io.ByteArrayContentFactory;
 import org.kopi.ebics.session.EbicsSession;
 import org.kopi.ebics.utils.Utils;
-import org.kopi.ebics.xml.KeyManagementResponseElement;
+import org.kopi.ebics.xml.h005.KeyManagementResponseElement;
 import org.kopi.ebics.xml.h005.*;
 
 import java.io.ByteArrayInputStream;
