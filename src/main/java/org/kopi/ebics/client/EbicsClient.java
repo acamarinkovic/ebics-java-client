@@ -61,7 +61,7 @@ import org.kopi.ebics.order.h005.EbicsDownloadOrder;
 import org.kopi.ebics.order.h005.EbicsMessage;
 import org.kopi.ebics.order.h005.EbicsService;
 import org.kopi.ebics.order.h005.EbicsUploadOrder;
-import org.kopi.ebics.schema.h003.OrderAttributeType;
+import org.kopi.ebics.schema.h004.OrderAttributeType;
 import org.kopi.ebics.session.DefaultConfiguration;
 import org.kopi.ebics.session.EbicsSession;
 import org.kopi.ebics.session.OrderType;

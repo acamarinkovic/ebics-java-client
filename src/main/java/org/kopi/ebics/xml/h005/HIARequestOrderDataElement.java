@@ -19,7 +19,7 @@
 package org.kopi.ebics.xml.h005;
 
 
-import org.kopi.ebics.schema.h003.PubKeyValueType;
+import org.kopi.ebics.schema.h004.PubKeyValueType;
 import org.kopi.ebics.schema.xmldsig.RSAKeyValueType;
 import org.kopi.ebics.session.EbicsSession;
 import org.kopi.ebics.exception.EbicsException;

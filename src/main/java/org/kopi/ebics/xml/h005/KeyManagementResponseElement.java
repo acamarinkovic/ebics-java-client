@@ -23,6 +23,7 @@ import org.kopi.ebics.exception.EbicsException;
 import org.kopi.ebics.exception.h005.EbicsReturnCode;
 import org.kopi.ebics.interfaces.ContentFactory;
 import org.kopi.ebics.schema.h005.EbicsKeyManagementResponseDocument;
+import org.kopi.ebics.schema.h005.EbicsKeyManagementResponseDocument.EbicsKeyManagementResponse;
 
 /**
  * The <code>KeyManagementResponseElement</code> is the common element
@@ -66,18 +67,20 @@ public class KeyManagementResponseElement extends DefaultResponseElement {
         return response.getBody().getDataTransfer().getOrderData().byteArrayValue();
     }
 
+
     @Override
     public void build() throws EbicsException {
-        String code;
-        String text;
+        String			code;
+        String			text;
 
         parse(factory);
-        response = ((EbicsKeyManagementResponseDocument) document).getEbicsKeyManagementResponse();
+        response = ((EbicsKeyManagementResponseDocument)document).getEbicsKeyManagementResponse();
         code = response.getHeader().getMutable().getReturnCode();
         text = response.getHeader().getMutable().getReportText();
         returnCode = EbicsReturnCode.toReturnCode(code, text);
         report();
         processBodyReturnCode();
+
     }
 
     protected void processBodyReturnCode() throws EbicsException {
@@ -90,6 +93,6 @@ public class KeyManagementResponseElement extends DefaultResponseElement {
     // DATA MEMBERS
     // --------------------------------------------------------------------
 
-    private EbicsKeyManagementResponseDocument.EbicsKeyManagementResponse response;
+    private EbicsKeyManagementResponse response;
     private static final long serialVersionUID = -3556995397305708927L;
 }
