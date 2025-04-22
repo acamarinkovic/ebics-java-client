@@ -949,9 +949,9 @@ public class EbicsXmlFactory {
     private static StaticHeaderOrderDetailsType createStaticHeaderOrderDetailsType(String orderId,
         OrderAttributeType.Enum orderAttribute, OrderType orderType, XmlObject orderParams, QName newInstance) {
         StaticHeaderOrderDetailsType type = StaticHeaderOrderDetailsType.Factory.newInstance();
-        if (orderId != null) {
-            type.setOrderID(orderId);
-        }
+//        if (orderId != null) {
+//            type.setOrderID(orderId);
+//        }
         type.setOrderAttribute(orderAttribute);
         type.setOrderType(orderType);
         type.setOrderParams(orderParams);
